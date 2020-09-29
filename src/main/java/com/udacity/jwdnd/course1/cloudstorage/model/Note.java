@@ -5,11 +5,14 @@ public class Note {
     private Integer noteId;
     private String notetitle;
     private String notedescription;
+    private Integer userid;
 
-    public Note(Integer noteId, String notetitle, String notedescription) {
-        this.noteId = noteId;
-        this.notetitle = notetitle;
-        this.notedescription = notedescription;
+    public Integer getUserid() {
+        return userid;
+    }
+
+    public void setUserid(Integer userid) {
+        this.userid = userid;
     }
 
     public Integer getNoteId() {

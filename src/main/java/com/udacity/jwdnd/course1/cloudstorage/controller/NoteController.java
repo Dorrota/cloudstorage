@@ -21,7 +21,7 @@ public class NoteController {
     }
 
     @PostMapping
-    public String addNote(@ModelAttribute Note note, Authentication authentication){
+    public String addOrUpdateNote(@ModelAttribute Note note, Authentication authentication){
         if (note.getNoteId() == null){
             note.setUserid(userService.getUser(authentication.getName()).getUserId());
             noteService.saveNote(note);
@@ -31,7 +31,7 @@ public class NoteController {
             noteService.updateNote(note);
         }
 
-        return "redirect:/home";
+        return "result";
     }
 
     @GetMapping("/delete/{noteId}")

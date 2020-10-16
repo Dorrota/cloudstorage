@@ -21,16 +21,15 @@ public class NoteController {
     }
 
     @PostMapping
-    public String addOrUpdateNote(@ModelAttribute Note note, Authentication authentication){
+    public String addOrUpdateNote(@ModelAttribute Note note, Model model, Authentication authentication){
         if (note.getNoteId() == null){
             note.setUserid(userService.getUser(authentication.getName()).getUserId());
             noteService.saveNote(note);
             System.out.println(note.getNoteId() + " " + note.getNotetitle() + " " + note.getNotedescription());
         } else {
-
             noteService.updateNote(note);
         }
-
+        model.addAttribute("success", "success");
         return "result";
     }
 

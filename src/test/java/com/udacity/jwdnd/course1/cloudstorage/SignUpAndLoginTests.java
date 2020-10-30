@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class SignUpAndLoginTests {
@@ -48,6 +49,7 @@ public class SignUpAndLoginTests {
     public void signUpLoginAndLogoutTest() throws InterruptedException {
         signUpPage.goToSignUpPage();
         signUpPage.signUp("Dorota", "Kocurek", userName, password);
+        signUpPage.goToLogin();
         assertEquals("Login", driver.getTitle());
         System.out.println(driver.getTitle());
         Thread.sleep(1000);
@@ -62,7 +64,7 @@ public class SignUpAndLoginTests {
 
     // Test verifies that an unauthorized user can only access the login and signup pages.
     @Test
-    public void unauthorizedAccessToHomePage(){
+    public void unauthorizedAccessToHomePageTest(){
         String baseUrl = "http://localhost:" + port;
         String h1Text = "Sign Up";
         driver.get(baseUrl + "/home");
@@ -72,5 +74,13 @@ public class SignUpAndLoginTests {
         assertEquals((baseUrl + "/login"), driver.getCurrentUrl());
         signUpPage.goToSignUpPage();
         assertEquals(h1Text, signUpPage.h1Text());
+    }
+
+    @Test
+    public void signUpTwiceErrorTest() throws InterruptedException {
+        signUpPage.goToSignUpPage();
+        signUpPage.signUp("Dorota", "Kocurek", userName, password);
+        signUpPage.signUp("Dorota", "Kocurek", userName, password);
+        assertTrue(signUpPage.getErrorMessage());
     }
 }

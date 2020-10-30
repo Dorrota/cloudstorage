@@ -41,8 +41,6 @@ public class FileController {
 
             fileService.saveFile(file);
         }
-
-        System.out.println(file.getFileName() + " " + file.getFileSize());
         return "result";
     }
 

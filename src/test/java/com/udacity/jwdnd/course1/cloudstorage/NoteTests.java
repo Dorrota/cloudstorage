@@ -49,7 +49,8 @@ public class NoteTests {
         String password ="test123";
         signUpPage = new SignUpPage(driver);
         signUpPage.signUp("Dorota", "Kocurek", userName, password);
-        driver.get(baseUrl + "/login");
+        signUpPage.goToLogin();
+        //driver.get(baseUrl + "/login");
         loginPage = new LoginPage(driver);
         loginPage.login(userName, password);
         notePage = new NotePage(driver);
@@ -64,7 +65,8 @@ public class NoteTests {
         String password ="test1231";
         signUpPage = new SignUpPage(driver);
         signUpPage.signUp("Dorota", "Kocurek1", userName, password);
-        driver.get(baseUrl + "/login");
+        signUpPage.goToLogin();
+        //driver.get(baseUrl + "/login");
         loginPage = new LoginPage(driver);
         loginPage.login(userName, password);
         notePage = new NotePage(driver);
@@ -80,7 +82,8 @@ public class NoteTests {
         String password ="test1232";
         signUpPage = new SignUpPage(driver);
         signUpPage.signUp("Dorota", "Kocurek2", userName, password);
-        driver.get(baseUrl + "/login");
+        signUpPage.goToLogin();
+        //driver.get(baseUrl + "/login");
         loginPage = new LoginPage(driver);
         loginPage.login(userName, password);
         notePage = new NotePage(driver);

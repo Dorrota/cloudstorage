@@ -31,6 +31,9 @@ public class SignUpPage {
     @FindBy(id="backToLogin")
     private WebElement goToLogin;
 
+    @FindBy(id="error-msg")
+    private WebElement errorMessage;
+
     public SignUpPage(WebDriver driver){
         PageFactory.initElements(driver, this);
     }
@@ -49,7 +52,10 @@ public class SignUpPage {
         signUpUserName.sendKeys(userName);
         signUpPassword.sendKeys(password);
         submitButton.click();
-        Thread.sleep(2000);
+        Thread.sleep(1000);
+    }
+
+    public void goToLogin(){
         goToLogin.click();
     }
 
@@ -58,5 +64,9 @@ public class SignUpPage {
         signUpPassword.sendKeys(password);
         submitButton.click();
         Thread.sleep(2000);
+    }
+
+    public Boolean getErrorMessage(){
+        return errorMessage.isDisplayed();
     }
 }

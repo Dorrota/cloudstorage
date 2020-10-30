@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class CredentialsTest {
+public class CredentialsTests {
 
     @LocalServerPort
     private Integer port;
@@ -49,14 +49,14 @@ public class CredentialsTest {
         driver.quit();
     }
 
-
         @Test
     public void submitNewCredentialTest() throws InterruptedException {
         String userName = "userName";
         String password ="test123";
         signUpPage = new SignUpPage(driver);
         signUpPage.signUp("Dorota", "Kocurek", userName, password);
-        driver.get(baseUrl + "/login");
+        signUpPage.goToLogin();
+        //driver.get(baseUrl + "/login");
         loginPage = new LoginPage(driver);
         loginPage.login(userName, password);
         credentialsPage = new CredentialsPage(driver);
@@ -71,7 +71,8 @@ public class CredentialsTest {
         String password ="test1231";
         signUpPage = new SignUpPage(driver);
         signUpPage.signUp("Dorota", "Kocurek1", userName, password);
-        driver.get(baseUrl + "/login");
+        signUpPage.goToLogin();
+        //driver.get(baseUrl + "/login");
         loginPage = new LoginPage(driver);
         loginPage.login(userName, password);
         credentialsPage = new CredentialsPage(driver);
@@ -87,7 +88,8 @@ public class CredentialsTest {
         String password ="test1232";
         signUpPage = new SignUpPage(driver);
         signUpPage.signUp("Dorota", "Kocurek2", userName, password);
-        driver.get(baseUrl + "/login");
+        signUpPage.goToLogin();
+        //driver.get(baseUrl + "/login");
         loginPage = new LoginPage(driver);
         loginPage.login(userName, password);
         credentialsPage = new CredentialsPage(driver);

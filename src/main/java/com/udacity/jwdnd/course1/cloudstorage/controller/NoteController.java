@@ -25,7 +25,6 @@ public class NoteController {
         if (note.getNoteId() == null){
             note.setUserid(userService.getUser(authentication.getName()).getUserId());
             noteService.saveNote(note);
-            System.out.println(note.getNoteId() + " " + note.getNotetitle() + " " + note.getNotedescription());
         } else {
             noteService.updateNote(note);
         }
@@ -39,9 +38,4 @@ public class NoteController {
         return "redirect:/home";
     }
 
-//    @GetMapping("/edit/{noteId}")
-//    public String editNote(@PathVariable Integer noteId) {
-//        Note note = noteService.getOneNote(noteId);
-//        noteService.
-//    }
 }

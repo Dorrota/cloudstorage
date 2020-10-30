@@ -48,23 +48,4 @@ public class HomeController {
         return "home";
     }
 
-    @PostMapping
-    public String postNote(){
-
-        return "home";
-    }
-
-//    @ModelAttribute("note")
-//    public Note createNote(){
-//        Note note = new Note();
-//        return note;
-//    }
-//    @ModelAttribute("allNotes")
-//    public List<Note> notesList(Authentication authentication){
-//        String userName = authentication.getName();
-//        User user = userService.getUser(userName);
-//        Integer userId = user.getUserId();
-//        List<Note> noteList = noteService.getAllNotesForUser(userId);
-//        return noteList;
-//    }
 }

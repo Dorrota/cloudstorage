@@ -23,6 +23,10 @@
                 <span>Empty file. Your changes were not saved. Example Error Message</span>
                 <span>Click <a href="/home">here</a> to continue.</span>
             </div>
+            <div th:if="${delete}" class="alert alert-success fill-parent">
+                <h1 class="display-5">Success</h1>
+                <span>Your changes were successfully saved. Click <a name="home-page" href="/home">here</a> to continue.</span>
+            </div>
         </div>
     </body>
 </html>

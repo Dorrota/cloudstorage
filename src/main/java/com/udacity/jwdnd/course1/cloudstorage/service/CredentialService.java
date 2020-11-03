@@ -21,9 +21,9 @@ public class CredentialService {
 
     public List<Credential> getAllCredentials(Integer userId){
         List<Credential> credentials = mapper.getCredentials(userId);
-        for (Credential credential: credentials) {
-            credential.setPassword(encryptionService.decryptValue(credential.getPassword(), credential.getKey()));
-        }
+//        for (Credential credential: credentials) {
+//            credential.setPassword(encryptionService.decryptValue(credential.getPassword(), credential.getKey()));
+//        }
         return credentials;
     }
 

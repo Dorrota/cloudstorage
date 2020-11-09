@@ -98,8 +98,6 @@ public class CredentialsPage {
     public String editCredentialGetPassword() throws InterruptedException {
         editCredButton.click();
         Thread.sleep(1000);
-        System.out.println("jojooj" + credPassword.getAttribute("value"));
-        System.out.println(credPassword.isDisplayed());
         String pass = credPassword.getAttribute("value");
         submitCred.click();
         goToHomePage.click();

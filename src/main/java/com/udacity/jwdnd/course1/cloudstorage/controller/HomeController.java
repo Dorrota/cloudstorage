@@ -36,7 +36,7 @@ public class HomeController {
 
         model.addAttribute("encryptionService", encryptionService);
         Integer userId = userService.getUser(authentication.getName()).getUserId();
-        System.out.println(authentication.getName() + " " + userId);
+
         List<Note> noteList = noteService.getAllNotesForUser(userId);
         model.addAttribute("allNotes", noteList);
 

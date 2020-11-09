@@ -84,7 +84,7 @@ public class CredentialsPage {
         return credPasswordDisplay.getText();
     }
 
-    public void editCredential(String newUrl, String newUserName, String newPassword){
+    public void changeCredential(String newUrl, String newUserName, String newPassword){
         editCredButton.click();
         credUrl.sendKeys(newUrl);
         credUsername.sendKeys(newUserName);
@@ -94,8 +94,21 @@ public class CredentialsPage {
         goToCredentialsTab();
     }
 
+
+    public String editCredentialGetPassword() throws InterruptedException {
+        editCredButton.click();
+        Thread.sleep(1000);
+        System.out.println("jojooj" + credPassword.getAttribute("value"));
+        System.out.println(credPassword.isDisplayed());
+        String pass = credPassword.getAttribute("value");
+        submitCred.click();
+        goToHomePage.click();
+        return pass;
+    }
+
     public void deleteCredential(){
         deleteCredButton.click();
+        goToHomePage.click();
         goToCredentialsTab();
     }
 }

@@ -72,6 +72,7 @@ public class NotePage {
 
     public void deleteNote(){
         deleteNote.click();
+        goToHomePage();
         goToNoteTab();
     }
 

@@ -1,5 +1,7 @@
 package com.udacity.jwdnd.course1.cloudstorage;
 
+import com.udacity.jwdnd.course1.cloudstorage.model.Credential;
+import com.udacity.jwdnd.course1.cloudstorage.service.CredentialService;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.NoSuchElementException;
@@ -8,8 +10,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class CredentialsTests {
@@ -26,15 +27,11 @@ public class CredentialsTests {
     private String credUsername = "Dorro";
     private String credPassword = "t123T";
 
+
     @BeforeAll
     public static void beforeAll() {
         WebDriverManager.firefoxdriver().setup();
     }
-
-//    @AfterAll
-//    public static void afterAll() {
-//        driver.quit();
-//    }
 
     @BeforeEach
     public void beforeEach() throws InterruptedException {
@@ -56,13 +53,12 @@ public class CredentialsTests {
         signUpPage = new SignUpPage(driver);
         signUpPage.signUp("Dorota", "Kocurek", userName, password);
         signUpPage.goToLogin();
-        //driver.get(baseUrl + "/login");
         loginPage = new LoginPage(driver);
         loginPage.login(userName, password);
         credentialsPage = new CredentialsPage(driver);
         credentialsPage.addNewCredential(credUrl, credUsername, credPassword);
         assertEquals(credUrl, credentialsPage.credUrlDisplayed());
-        assertEquals(credPassword, credentialsPage.credPasswordDisplayed());
+        assertNotEquals(credPassword, credentialsPage.credPasswordDisplayed());
     }
 
     @Test
@@ -72,14 +68,29 @@ public class CredentialsTests {
         signUpPage = new SignUpPage(driver);
         signUpPage.signUp("Dorota", "Kocurek1", userName, password);
         signUpPage.goToLogin();
-        //driver.get(baseUrl + "/login");
         loginPage = new LoginPage(driver);
         loginPage.login(userName, password);
         credentialsPage = new CredentialsPage(driver);
         credentialsPage.addNewCredential(credUrl, credUsername, credPassword);
-        credentialsPage.editCredential("NewUrl", "New username", "New*password");
+        credentialsPage.changeCredential("NewUrl", "New username", "New*password");
         assertEquals(credUrl + "NewUrl", credentialsPage.credUrlDisplayed());
-        assertEquals(credPassword + "New*password", credentialsPage.credPasswordDisplayed());
+        assertNotEquals(credPassword + "New*password", credentialsPage.credPasswordDisplayed());
+    }
+
+    @Test
+    public void editCredentialPasswordIsDecryptedTest() throws InterruptedException {
+        String userName = "userName";
+        String password ="test123";
+        signUpPage = new SignUpPage(driver);
+        signUpPage.signUp("Dorota", "Kocurek", userName, password);
+        signUpPage.goToLogin();
+        loginPage = new LoginPage(driver);
+        loginPage.login(userName, password);
+        credentialsPage = new CredentialsPage(driver);
+        credentialsPage.addNewCredential(credUrl, credUsername, credPassword);
+        String editPassword = credentialsPage.editCredentialGetPassword();
+        assertEquals(credPassword, editPassword);
+
     }
 
     @Test
@@ -89,7 +100,6 @@ public class CredentialsTests {
         signUpPage = new SignUpPage(driver);
         signUpPage.signUp("Dorota", "Kocurek2", userName, password);
         signUpPage.goToLogin();
-        //driver.get(baseUrl + "/login");
         loginPage = new LoginPage(driver);
         loginPage.login(userName, password);
         credentialsPage = new CredentialsPage(driver);

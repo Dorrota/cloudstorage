@@ -3,12 +3,15 @@ package com.udacity.jwdnd.course1.cloudstorage.controller;
 import com.udacity.jwdnd.course1.cloudstorage.model.File;
 import com.udacity.jwdnd.course1.cloudstorage.service.FileService;
 import com.udacity.jwdnd.course1.cloudstorage.service.UserService;
+import org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException;
+import org.apache.tomcat.util.http.fileupload.impl.SizeLimitExceededException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -45,9 +48,10 @@ public class FileController {
     }
 
     @GetMapping("/delete/{fileId}")
-    public String deleteFile(@PathVariable Integer fileId){
+    public String deleteFile(@PathVariable Integer fileId, Model model){
         fileService.deleteFile(fileId);
-        return "redirect:/home";
+        model.addAttribute("delete", "delete");
+        return "result";
     }
 
     @GetMapping("/view/{fileId}")
@@ -56,5 +60,10 @@ public class FileController {
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFileName() + "\"")
                 .body(file.getFileData());
+    }
+
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    public String sizeFileTooLargeExp(){
+        return "fileError";
     }
 }
